@@ -1,7 +1,25 @@
 public class Main {
 
-    public static boolean isPalindrome(String word) {
-        word = word.replaceAll("\\s+", "").toLowerCase(); // remove spaces and convert to lowercase
+    public static void main(String[] args) {
+        String word = "A man a plan a canal Panama";
+
+        // Use PalindromeChecker class
+        PalindromeChecker checker = new PalindromeChecker();
+        if (checker.isPalindrome(word)) {
+            System.out.println("\"" + word + "\" is a Palindrome");
+        } else {
+            System.out.println("\"" + word + "\" is NOT a Palindrome");
+        }
+    }
+}
+
+// Encapsulated palindrome logic
+class PalindromeChecker {
+
+    public boolean isPalindrome(String word) {
+        if (word == null) return false;
+
+        word = word.replaceAll("\\s+", "").toLowerCase(); // ignore spaces and case
         int start = 0;
         int end = word.length() - 1;
 
@@ -13,15 +31,5 @@ public class Main {
             end--;
         }
         return true;
-    }
-
-    public static void main(String[] args) {
-        String word = "A man a plan a canal Panama";
-
-        if (isPalindrome(word)) {
-            System.out.println("\"" + word + "\" is a Palindrome");
-        } else {
-            System.out.println("\"" + word + "\" is NOT a Palindrome");
-        }
     }
 }
