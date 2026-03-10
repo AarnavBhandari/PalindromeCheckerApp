@@ -1,23 +1,27 @@
 public class Main {
 
-    // Recursive function to check palindrome
-    public static boolean isPalindrome(String word, int start, int end) {
-        if (start >= end) {
-            return true;
+    public static boolean isPalindrome(String word) {
+        word = word.replaceAll("\\s+", "").toLowerCase(); // remove spaces and convert to lowercase
+        int start = 0;
+        int end = word.length() - 1;
+
+        while (start < end) {
+            if (word.charAt(start) != word.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
         }
-        if (word.charAt(start) != word.charAt(end)) {
-            return false;
-        }
-        return isPalindrome(word, start + 1, end - 1);
+        return true;
     }
 
     public static void main(String[] args) {
-        String word = "level";
+        String word = "A man a plan a canal Panama";
 
-        if (isPalindrome(word, 0, word.length() - 1)) {
-            System.out.println(word + " is a Palindrome");
+        if (isPalindrome(word)) {
+            System.out.println("\"" + word + "\" is a Palindrome");
         } else {
-            System.out.println(word + " is NOT a Palindrome");
+            System.out.println("\"" + word + "\" is NOT a Palindrome");
         }
     }
 }
