@@ -1,34 +1,35 @@
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        // LIFO using Stack
-        Stack<String> stack = new Stack<>();
-        stack.push("A");
-        stack.push("B");
-        stack.push("C");
+        String word = "level";
 
-        System.out.println("Stack (LIFO) output:");
-        while (!stack.isEmpty()) {
-            System.out.print(stack.pop() + " ");
+        Deque<Character> deque = new ArrayDeque<>();
+
+        // Add all characters to deque
+        for (char ch : word.toCharArray()) {
+            deque.addLast(ch);
         }
-        System.out.println();
 
-        // FIFO using Queue
-        Queue<String> queue = new LinkedList<>();
-        queue.add("A");
-        queue.add("B");
-        queue.add("C");
+        boolean isPalindrome = true;
 
-        System.out.println("Queue (FIFO) output:");
-        while (!queue.isEmpty()) {
-            System.out.print(queue.poll() + " ");
+        while (deque.size() > 1) {
+            char front = deque.removeFirst();
+            char rear = deque.removeLast();
+            if (front != rear) {
+                isPalindrome = false;
+                break;
+            }
         }
-        System.out.println();
+
+        if (isPalindrome) {
+            System.out.println(word + " is a Palindrome");
+        } else {
+            System.out.println(word + " is NOT a Palindrome");
+        }
 
     }
 }
