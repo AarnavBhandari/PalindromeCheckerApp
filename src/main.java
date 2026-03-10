@@ -1,30 +1,34 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        String word = "racecar";
+        // LIFO using Stack
+        Stack<String> stack = new Stack<>();
+        stack.push("A");
+        stack.push("B");
+        stack.push("C");
 
-        Stack<Character> stack = new Stack<>();
-
-        // Push all characters into stack
-        for (char ch : word.toCharArray()) {
-            stack.push(ch);
-        }
-
-        // Pop characters and build reversed string
-        String reversed = "";
+        System.out.println("Stack (LIFO) output:");
         while (!stack.isEmpty()) {
-            reversed += stack.pop();
+            System.out.print(stack.pop() + " ");
         }
+        System.out.println();
 
-        // Check palindrome
-        if (word.equals(reversed)) {
-            System.out.println(word + " is a Palindrome");
-        } else {
-            System.out.println(word + " is NOT a Palindrome");
+        // FIFO using Queue
+        Queue<String> queue = new LinkedList<>();
+        queue.add("A");
+        queue.add("B");
+        queue.add("C");
+
+        System.out.println("Queue (FIFO) output:");
+        while (!queue.isEmpty()) {
+            System.out.print(queue.poll() + " ");
         }
+        System.out.println();
 
     }
 }
