@@ -5,7 +5,7 @@ interface PalindromeAlgorithm {
     boolean isPalindrome(String word);
 }
 
-// Algorithm 1: Reverse string method
+// Algorithm 1: Reverse string
 class ReverseStringAlgorithm implements PalindromeAlgorithm {
     public boolean isPalindrome(String word) {
         String cleaned = word.replaceAll("\\s+", "").toLowerCase();
@@ -14,7 +14,7 @@ class ReverseStringAlgorithm implements PalindromeAlgorithm {
     }
 }
 
-// Algorithm 2: Character array comparison
+// Algorithm 2: Character array
 class CharArrayAlgorithm implements PalindromeAlgorithm {
     public boolean isPalindrome(String word) {
         String cleaned = word.replaceAll("\\s+", "").toLowerCase();
@@ -28,16 +28,16 @@ class CharArrayAlgorithm implements PalindromeAlgorithm {
     }
 }
 
-// PalindromeChecker that chooses algorithm dynamically
-class PalindromeChecker {
-    private PalindromeAlgorithm algorithm;
-
-    public PalindromeChecker(PalindromeAlgorithm algorithm) {
-        this.algorithm = algorithm;
+// Algorithm 3: Recursion
+class RecursionAlgorithm implements PalindromeAlgorithm {
+    private boolean helper(String word, int start, int end) {
+        if (start >= end) return true;
+        if (word.charAt(start) != word.charAt(end)) return false;
+        return helper(word, start + 1, end - 1);
     }
-
-    public boolean check(String word) {
-        return algorithm.isPalindrome(word);
+    public boolean isPalindrome(String word) {
+        String cleaned = word.replaceAll("\\s+", "").toLowerCase();
+        return helper(cleaned, 0, cleaned.length() - 1);
     }
 }
 
@@ -45,28 +45,28 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
-        System.out.println("Enter a string:");
+        System.out.println("Enter a string to test performance:");
         String input = sc.nextLine();
-
-        System.out.println("Choose algorithm: 1 - Reverse, 2 - Char Array");
-        int choice = sc.nextInt();
-
-        PalindromeAlgorithm algo;
-        if (choice == 1) {
-            algo = new ReverseStringAlgorithm();
-        } else {
-            algo = new CharArrayAlgorithm();
-        }
-
-        PalindromeChecker checker = new PalindromeChecker(algo);
-
-        if (checker.check(input)) {
-            System.out.println("\"" + input + "\" is a Palindrome");
-        } else {
-            System.out.println("\"" + input + "\" is NOT a Palindrome");
-        }
-
         sc.close();
+
+        PalindromeAlgorithm[] algorithms = {
+                new ReverseStringAlgorithm(),
+                new CharArrayAlgorithm(),
+                new RecursionAlgorithm()
+        };
+
+        String[] names = {
+                "Reverse String",
+                "Character Array",
+                "Recursion"
+        };
+
+        for (int i = 0; i < algorithms.length; i++) {
+            long startTime = System.nanoTime();
+            boolean result = algorithms[i].isPalindrome(input);
+            long endTime = System.nanoTime();
+            System.out.println(names[i] + ": " + (result ? "Palindrome" : "Not Palindrome")
+                    + " | Time: " + (endTime - startTime) + " ns");
+        }
     }
 }
